@@ -20,9 +20,15 @@ function findByZip(zip) {
 }
 
 function findByCity(city) {
+    //test for a - in city name
     if (city.includes("-")) {
         const spacedCityArr = city.split("-");
-        const upperArr = spacedCityArr.map(cur => {
+        //lower case every letter to defeat edge case of all caps
+        const lowerArr = spacedCityArr.map(cur => {
+            return cur.toLowerCase();
+        })
+        const upperArr = lowerArr.map(cur => {
+            //replace every first character with a capitalized one
             return cur.replace(/^\w/, chr => {
                 return chr.toUpperCase();
             })
@@ -31,6 +37,7 @@ function findByCity(city) {
         return db('zip').where({ city: spacedCity })
 
     } else {
+        //if no - then split and uppercase first index while lowering the rest (helps defeat all caps edge)
         const capitalCity = city.split('');
         const newCity = capitalCity.map((cur, index) => {
             return index === 0 ?  cur.toUpperCase() : cur.toLowerCase();
