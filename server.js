@@ -1,11 +1,15 @@
+require('dotenv').config();
+
 const express = require('express');
 
 const ZipCodes = require('./dbHelpers');
 
+const port = process.env.port || 5000;
+
 const server = express();
 
-server.listen(5000, () => {
-    console.log('Listening on port:5000')
+server.listen(port, () => {
+    console.log(`\n ### SERVER RUNNING ON PORT:${port} ### \n`)
 })
 
 server.use(express.json());
