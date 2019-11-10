@@ -1,7 +1,8 @@
 # Zipcode-backend
 Back end for zip code app
 
-
+### Server
+https://saturday-delivery.herokuapp.com
 
 
  ## Summary of Endpoints 
