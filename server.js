@@ -42,7 +42,6 @@ server.get('/api/zips/:zip', (req, res) => {
 
 server.get('/api/city/:city', (req, res) => {
     const { city } = req.params;
-
     ZipCodes.findByCity(city)
         .then(result => {
             if (result) {

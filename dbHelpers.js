@@ -20,13 +20,24 @@ function findByZip(zip) {
 }
 
 function findByCity(city) {
-    const capitalCity = city.split('');
-    const newCity = capitalCity.map((cur, index) => {
-        return index === 0 ? cur.toUpperCase() : cur.toLowerCase();
-    })
-    const actualCity = newCity.join('');
+    if (city.includes("-")) {
+        const spacedCityArr = city.split("-");
+        const upperArr = spacedCityArr.map(cur => {
+            return cur.replace(/^\w/, chr => {
+                return chr.toUpperCase();
+            })
+        })
+        const spacedCity = upperArr.join(" ");
+        return db('zip').where({ city: spacedCity })
 
-    return db('zip').where({ city: actualCity })
+    } else {
+        const capitalCity = city.split('');
+        const newCity = capitalCity.map((cur, index) => {
+            return index === 0 ?  cur.toUpperCase() : cur.toLowerCase();
+        })
+        const actualCity = newCity.join('');
+        return db('zip').where({ city: actualCity })
+    }
 }
 
 function add(city) {
