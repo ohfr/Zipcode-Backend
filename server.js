@@ -1,6 +1,6 @@
-require('dotenv').config();
-
 const express = require('express');
+
+const cors = require("cors");
 
 const ZipCodes = require('./dbHelpers');
 
@@ -8,11 +8,10 @@ const port = process.env.PORT || 5000;
 
 const server = express();
 
-server.listen(port, () => {
-    console.log(`\n ### SERVER RUNNING ON PORT:${port} ### \n`)
-})
+server.use(cors());
 
 server.use(express.json());
+
 
 server.get('/api', (req, res) => {
     ZipCodes.find()
@@ -78,4 +77,8 @@ server.delete('/api/:id', (req, res) => {
         .catch(err => {
             res.status(500).json({err: "Error deleting city"})
         })
+});
+
+server.listen(port, () => {
+    console.log(`\n ### SERVER RUNNING ON PORT:${port} ### \n`)
 })
